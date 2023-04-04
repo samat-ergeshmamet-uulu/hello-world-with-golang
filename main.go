@@ -1,7 +1,16 @@
 package main
 
-import "fmt"
+import (
+	"log"
+	"net/http"
+)
+
+func HelloWorldWebServer(writer http.ResponseWriter, request *http.Request){
+	writer.Write([] byte("Hello, World!!!"))
+}
 
 func main() {
-	fmt.Println("Hello, World!!!")
+	http.HandleFunc("/", HelloWorldWebServer)
+	log.Println("Start HTTP server on port 8080");
+	log.Fatal(http.ListenAndServe(":8080", nil))
 }
